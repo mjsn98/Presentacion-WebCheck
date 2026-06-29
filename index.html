@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Check - Presentación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dgi: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#667eea',
+                            600: '#5a67d8',
+                            700: '#4c51bf',
+                            800: '#434190',
+                            900: '#3730a3',
+                            950: '#1e1b4b'
+                        },
+                        accent: {
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce'
+                        },
+                        danger: {
+                            400: '#f87171',
+                            500: '#ef4444',
+                            600: '#dc2626'
+                        },
+                        success: {
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a'
+                        },
+                        warm: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scroll-behavior: smooth; }
+
+        /* Slide reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #a855f7 50%, #7e22ce 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animated gradient bg */
+        .hero-bg {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 25%, #4c1d95 50%, #312e81 75%, #1e1b4b 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            animation: floatParticle linear infinite;
+        }
+        @keyframes floatParticle {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Pulse ring */
+        .pulse-ring {
+            animation: pulseRing 2s ease-out infinite;
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        /* Card hover lift */
+        .card-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(102, 126, 234, 0.25);
+        }
+
+        /* Step connector line */
+        .step-line {
+            position: absolute;
+            left: 24px;
+            top: 56px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #667eea, #a855f7, transparent);
+        }
+
+        /* Counter animation */
+        .counter { font-variant-numeric: tabular-nums; }
+
+        /* Progress bar animation */
+        .progress-fill {
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 0%;
+        }
+        .progress-fill.active { /* width set via JS */ }
+
+        /* Nav dots */
+        .nav-dot {
+            transition: all 0.3s ease;
+        }
+        .nav-dot.active-dot {
+            background: #667eea;
+            transform: scale(1.4);
+            box-shadow: 0 0 12px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Tooltip */
+        .tooltip-trigger:hover .tooltip-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .tooltip-content {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* Accent line animation */
+        .accent-line {
+            width: 0;
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .accent-line.active { width: 80px; }
+
+        /* Mock chart bars */
+        .mock-bar {
+            transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 0;
+        }
+        .mock-bar.active { /* height set inline */ }
+
+        /* Slide section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #c7d2fe, transparent);
+        }
+
+        /* Badge shine */
+        .badge-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .badge-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                transparent 0%,
+                rgba(255,255,255,0.15) 50%,
+                transparent 100%
+            );
+            transform: rotate(30deg);
+            animation: badgeShine 3s ease-in-out infinite;
+        }
+        @keyframes badgeShine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        /* Number highlight */
+        .number-highlight {
+            background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(168,85,247,0.1));
+            border: 1px solid rgba(102,126,234,0.2);
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-gray-800 overflow-x-hidden">
+
+    <!-- ============================================ -->
+    <!-- FIXED NAV DOTS (right side) -->
+    <!-- ============================================ -->
+    <nav id="navDots" class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 hidden lg:flex">
+        <button onclick="scrollToSection('hero')" class="nav-dot active-dot w-3 h-3 rounded-full bg-gray-300" title="Inicio"></button>
+        <button onclick="scrollToSection('problema')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="El Problema"></button>
+        <button onclick="scrollToSection('que-es')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="¿Qué es?"></button>
+        <button onclick="scrollToSection('como-funciona')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="¿Cómo funciona?"></button>
+        <button onclick="scrollToSection('pantallas')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="Pantallas"></button>
+        <button onclick="scrollToSection('deteccion')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="Detección"></button>
+        <button onclick="scrollToSection('beneficios')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="Beneficios"></button>
+        <button onclick="scrollToSection('importancia')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="Importancia"></button>
+        <button onclick="scrollToSection('cerrar')" class="nav-dot w-3 h-3 rounded-full bg-gray-300" title="Cierre"></button>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 1: HERO -->
+    <!-- ============================================ -->
+    <section id="hero" class="hero-bg relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Particles -->
+        <div id="particles" class="absolute inset-0 pointer-events-none"></div>
+
+        <!-- Grid overlay -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+            <div class="reveal">
+                <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md mb-8 badge-shine">
+                    <iconify-icon icon="mdi:shield-check" class="text-green-400 text-lg"></iconify-icon>
+                    <span class="text-white/90 text-xs font-semibold tracking-widest uppercase">DGIPSE — Santiago del Estero</span>
+                </div>
+            </div>
+
+            <h1 class="reveal stagger-1 font-serif text-5xl md:text-7xl lg:text-8xl font-700 text-white leading-[0.95] tracking-tight mb-8">
+                Web Check<br>
+                <span class="italic" style="background: linear-gradient(135deg, #a5b4fc, #c084fc, #f0abfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Análisis de Tráfico</span>
+            </h1>
+
+            <p class="reveal stagger-2 text-lg md:text-xl text-white/70 font-light max-w-2xl mx-auto leading-relaxed mb-12">
+                Una herramienta inteligente que vigila, analiza y protege el portal web del gobierno provincial — en tiempo real y sin necesidad de conocimientos técnicos.
+            </p>
+
+            <div class="reveal stagger-3 flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="scrollToSection('que-es')" class="group inline-flex items-center justify-center gap-3 bg-white text-dgi-900 px-8 py-4 rounded-xl font-semibold text-sm tracking-wide hover:bg-dgi-50 transition-all duration-300 hover:shadow-lg hover:shadow-white/20">
+                    Conocer la herramienta
+                    <iconify-icon icon="mdi:arrow-down" class="text-lg group-hover:translate-y-1 transition-transform duration-300"></iconify-icon>
+                </button>
+                <button onclick="scrollToSection('problema')" class="inline-flex items-center justify-center gap-3 border border-white/30 text-white px-8 py-4 rounded-xl font-medium text-sm tracking-wide hover:bg-white/10 transition-all duration-300">
+                    ¿Por qué nació?
+                </button>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 scroll-indicator">
+            <div class="flex flex-col items-center gap-2 text-white/40">
+                <span class="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+                <iconify-icon icon="mdi:chevron-down" class="text-2xl"></iconify-icon>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 2: EL PROBLEMA -->
+    <!-- ============================================ -->
+    <section id="problema" class="py-24 md:py-32 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="reveal text-center mb-16">
+                <span class="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-danger-500 bg-red-50 px-4 py-2 rounded-full mb-6">El problema</span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-tight text-gray-900 mb-6">
+                    ¿Qué pasa cuando <em class="text-danger-500">no</em> sabemos<br>quién visita nuestro portal?
+                </h2>
+                <div class="accent-line h-0.5 bg-danger-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Problem 1 -->
+                <div class="reveal stagger-1 card-lift bg-gradient-to-br from-red-50 to-white p-8 rounded-2xl border border-red-100">
+                    <div class="w-14 h-14 rounded-xl bg-red-100 flex items-center justify-center mb-6">
+                        <iconify-icon icon="mdi:robot-angry" class="text-danger-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Bots y ataques invisibles</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm">
+                        Sin monitoreo, programas automáticos pueden saturar el sitio, robar información o intentar accesos no autorizados sin que nadie se dé cuenta.
+                    </p>
+                </div>
+
+                <!-- Problem 2 -->
+                <div class="reveal stagger-2 card-lift bg-gradient-to-br from-amber-50 to-white p-8 rounded-2xl border border-amber-100">
+                    <div class="w-14 h-14 rounded-xl bg-amber-100 flex items-center justify-center mb-6">
+                        <iconify-icon icon="mdi:server-off" class="text-warm-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Caídas sin explicación</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm">
+                        Cuando el portal se vuelve lento o se cae, no sabemos si fue por mucha gente, por un ataque, o por un problema interno. Adivinar no es un plan.
+                    </p>
+                </div>
+
+                <!-- Problem 3 -->
+                <div class="reveal stagger-3 card-lift bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border border-blue-100">
+                    <div class="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center mb-6">
+                        <iconify-icon icon="mdi:eye-off" class="text-dgi-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Decisiones a ciegas</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm">
+                        Sin datos, no sabemos qué páginas visitan los ciudadanos, desde qué dispositivos, ni en qué horarios. No se puede mejorar lo que no se puede medir.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom statement -->
+            <div class="reveal mt-16 text-center">
+                <div class="inline-flex items-center gap-3 bg-gray-900 text-white px-8 py-4 rounded-xl">
+                    <iconify-icon icon="mdi:lightbulb-on" class="text-warm-400 text-xl"></iconify-icon>
+                    <span class="text-sm font-medium">Este dashboard nació para resolver exactamente estos tres problemas.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 3: ¿QUÉ ES? -->
+    <!-- ============================================ -->
+    <section id="que-es" class="py-24 md:py-32 bg-gradient-to-b from-white to-dgi-50/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Text -->
+                <div>
+                    <div class="reveal">
+                        <span class="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-dgi-500 bg-dgi-100 px-4 py-2 rounded-full mb-6">La solución</span>
+                    </div>
+                    <h2 class="reveal stagger-1 font-serif text-3xl md:text-5xl tracking-tight text-gray-900 mb-6 leading-tight">
+                        Un <span class="gradient-text">vigilante digital</span> que nunca duerme
+                    </h2>
+                    <div class="reveal stagger-2 accent-line h-0.5 bg-dgi-500 rounded-full mb-8"></div>
+
+                    <p class="reveal stagger-2 text-gray-500 font-light leading-relaxed mb-6">
+                        Imaginá un guardia de seguridad que, además de cuidar la puerta, anota <strong class="text-gray-700">quién entró, a qué hora, de dónde vino, qué miró</strong>, y si su comportamiento fue normal o sospechoso.
+                    </p>
+                    <p class="reveal stagger-3 text-gray-500 font-light leading-relaxed mb-8">
+                        Ahora imaginá que ese guardia puede analizar <strong class="text-gray-700">miles de visitas por segundo</strong>, no se cansa, no se equivoca, y te entrega un informe claro cada vez que lo necesitás.
+                    </p>
+                    <p class="reveal stagger-4 text-gray-500 font-light leading-relaxed">
+                        Eso es este dashboard: una <strong class="text-gray-700">aplicación web</strong> que toma los registros de visitas del portal dgipse.gob.ar, los analiza automáticamente con inteligencia artificial, y los presenta en pantallas sencillas de entender.
+                    </p>
+                </div>
+
+                <!-- Right: Visual -->
+                <div class="reveal-right">
+                    <div class="relative">
+                        <!-- Mock dashboard card -->
+                        <div class="bg-white rounded-2xl shadow-2xl shadow-dgi-200/50 border border-dgi-100 overflow-hidden">
+                            <!-- Title bar -->
+                            <div class="bg-dgi-900 px-6 py-4 flex items-center gap-3">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-warm-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                </div>
+                                <span class="text-white/60 text-xs ml-2">dgipse.gob.ar — Dashboard</span>
+                            </div>
+                            <!-- Mock content -->
+                            <div class="p-6">
+                                <!-- Mock metrics -->
+                                <div class="grid grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-dgi-50 rounded-xl p-4 border border-dgi-100">
+                                        <div class="text-[10px] text-dgi-500 font-semibold uppercase tracking-wider mb-1">Usuarios únicos</div>
+                                        <div class="text-2xl font-bold text-dgi-700 counter" data-target="3847">0</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-xl p-4 border border-purple-100">
+                                        <div class="text-[10px] text-accent-600 font-semibold uppercase tracking-wider mb-1">Total de visitas</div>
+                                        <div class="text-2xl font-bold text-accent-700 counter" data-target="45219">0</div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-xl p-4 border border-green-100">
+                                        <div class="text-[10px] text-success-600 font-semibold uppercase tracking-wider mb-1">Tráfico móvil</div>
+                                        <div class="text-2xl font-bold text-success-600">62.3%</div>
+                                    </div>
+                                    <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+                                        <div class="text-[10px] text-danger-500 font-semibold uppercase tracking-wider mb-1">Anomalías</div>
+                                        <div class="text-2xl font-bold text-danger-500">1.8%</div>
+                                    </div>
+                                </div>
+                                <!-- Mock chart -->
+                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                    <div class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider mb-3">Tráfico por hora</div>
+                                    <div class="flex items-end gap-1.5 h-24">
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="20%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="15%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="10%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="8%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="12%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-300 rounded-t" data-height="25%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-400 rounded-t" data-height="45%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-500 rounded-t" data-height="70%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-600 rounded-t" data-height="85%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-500 rounded-t" data-height="90%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-500 rounded-t" data-height="100%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-400 rounded-t" data-height="80%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-300 rounded-t" data-height="65%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-300 rounded-t" data-height="55%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="40%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="30%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-200 rounded-t" data-height="25%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-100 rounded-t" data-height="20%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-100 rounded-t" data-height="15%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-100 rounded-t" data-height="10%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-100 rounded-t" data-height="8%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-100 rounded-t" data-height="5%"></div>
+                                        <div class="mock-bar flex-1 bg-dgi-100 rounded-t" data-height="3%"></div>
+                                    </div>
+                                    <div class="flex justify-between mt-2 text-[9px] text-gray-300">
+                                        <span>0hs</span><span>6hs</span><span>12hs</span><span>18hs</span><span>23hs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating badge -->
+                        <div class="absolute -top-4 -right-4 bg-green-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-lg shadow-green-200 badge-shine">
+                            <iconify-icon icon="mdi:check-circle" class="mr-1"></iconify-icon>
+                            En tiempo real
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 4: ¿CÓMO FUNCIONA? -->
+    <!-- ============================================ -->
+    <section id="como-funciona" class="py-24 md:py-32 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="reveal text-center mb-20">
+                <span class="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-dgi-500 bg-dgi-100 px-4 py-2 rounded-full mb-6">Proceso simple</span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-tight text-gray-900 mb-6">
+                    3 pasos, sin complicaciones
+                </h2>
+                <div class="accent-line h-0.5 bg-dgi-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Steps -->
+            <div class="relative">
+                <!-- Vertical line -->
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-dgi-200 via-accent-200 to-transparent -translate-x-1/2"></div>
+
+                <!-- Step 1 -->
+                <div class="relative grid md:grid-cols-2 gap-8 md:gap-16 mb-16 items-center">
+                    <div class="reveal-left md:text-right">
+                        <div class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-dgi-500 mb-3">Paso 1</div>
+                        <h3 class="text-2xl font-serif text-gray-900 mb-4">Se cargan los datos</h3>
+                        <p class="text-gray-500 font-light leading-relaxed">
+                            El sistema recibe un archivo con los registros de todas las visitas al portal. Es como entregarle al vigilante un cuaderno con la lista de todos los que entraron al edificio.
+                        </p>
+                    </div>
+                    <div class="reveal-right">
+                        <div class="bg-dgi-50 rounded-2xl p-6 border border-dgi-100">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-dgi-500 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-dgi-200">1</div>
+                                <div>
+                                    <div class="text-sm font-semibold text-gray-900">datos.json</div>
+                                    <div class="text-xs text-gray-400">Archivo de registros</div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg p-3 text-xs font-mono text-gray-500 space-y-1 border border-gray-100">
+                                <div><span class="text-dgi-500">fecha</span>: "25-02-2024 10:30AM"</div>
+                                <div><span class="text-dgi-500">IP</span>: "200.81.123.45"</div>
+                                <div><span class="text-dgi-500">url</span>: "/tramites"</div>
+                                <div><span class="text-dgi-500">navegador</span>: "Chrome / Windows"</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Center dot -->
+                    <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-4 border-dgi-200 items-center justify-center z-10">
+                        <iconify-icon icon="mdi:upload" class="text-dgi-500 text-xl"></iconify-icon>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative grid md:grid-cols-2 gap-8 md:gap-16 mb-16 items-center">
+                    <div class="reveal-left md:order-2">
+                        <div class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-accent-500 mb-3">Paso 2</div>
+                        <h3 class="text-2xl font-serif text-gray-900 mb-4">La inteligencia artificial analiza</h3>
+                        <p class="text-gray-500 font-light leading-relaxed">
+                            Un algoritmo estudia cada visita y la compara con los patrones normales. Si alguien visitó 5.000 páginas en 10 minutos, lo marca como sospechoso — igual que un guardia que nota algo raro.
+                        </p>
+                    </div>
+                    <div class="reveal-right md:order-1">
+                        <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-accent-500 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-purple-200">2</div>
+                                <div>
+                                    <div class="text-sm font-semibold text-gray-900">Análisis automático</div>
+                                    <div class="text-xs text-gray-400">Machine Learning</div>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 text-xs">
+                                    <iconify-icon icon="mdi:check-circle" class="text-green-500"></iconify-icon>
+                                    <span class="text-gray-600">Clasifica visitantes por comportamiento</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <iconify-icon icon="mdi:check-circle" class="text-green-500"></iconify-icon>
+                                    <span class="text-gray-600">Detecta patrones anómalos</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <iconify-icon icon="mdi:check-circle" class="text-green-500"></iconify-icon>
+                                    <span class="text-gray-600">Identifica posibles bots</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <iconify-icon icon="mdi:check-circle" class="text-green-500"></iconify-icon>
+                                    <span class="text-gray-600">Agrupa usuarios similares</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-4 border-accent-200 items-center justify-center z-10">
+                        <iconify-icon icon="mdi:brain" class="text-accent-500 text-xl"></iconify-icon>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+                    <div class="reveal-left md:text-right">
+                        <div class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-success-500 mb-3">Paso 3</div>
+                        <h3 class="text-2xl font-serif text-gray-900 mb-4">Se ve todo en pantallas claras</h3>
+                        <p class="text-gray-500 font-light leading-relaxed">
+                            Los resultados aparecen en gráficos coloridos y sencillos. No hay que leer números crudos ni entender código: todo está listo para tomar decisiones.
+                        </p>
+                    </div>
+                    <div class="reveal-right">
+                        <div class="bg-green-50 rounded-2xl p-6 border border-green-100">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-success-500 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-green-200">3</div>
+                                <div>
+                                    <div class="text-sm font-semibold text-gray-900">Visualización interactiva</div>
+                                    <div class="text-xs text-gray-400">Gráficos + Reportes</div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="bg-white rounded-lg p-2 text-center border border-green-100">
+                                    <iconify-icon icon="mdi:chart-bar" class="text-success-500 text-lg"></iconify-icon>
+                                    <div class="text-[9px] text-gray-400 mt-1">Gráficos</div>
+                                </div>
+                                <div class="bg-white rounded-lg p-2 text-center border border-green-100">
+                                    <iconify-icon icon="mdi:map-marker" class="text-success-500 text-lg"></iconify-icon>
+                                    <div class="text-[9px] text-gray-400 mt-1">Mapas</div>
+                                </div>
+                                <div class="bg-white rounded-lg p-2 text-center border border-green-100">
+                                    <iconify-icon icon="mdi:file-download" class="text-success-500 text-lg"></iconify-icon>
+                                    <div class="text-[9px] text-gray-400 mt-1">Exportar</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-4 border-green-200 items-center justify-center z-10">
+                        <iconify-icon icon="mdi:monitor-dashboard" class="text-success-500 text-xl"></iconify-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 5: QUÉ MUESTRA (PANTALLAS) -->
+    <!-- ============================================ -->
+    <section id="pantallas" class="py-24 md:py-32 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="reveal text-center mb-16">
+                <span class="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-dgi-500 bg-white px-4 py-2 rounded-full mb-6 border border-dgi-100">Información visible</span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-tight text-gray-900 mb-6">
+                    ¿Qué se ve en el dashboard?
+                </h2>
+                <div class="accent-line h-0.5 bg-dgi-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="reveal stagger-1 card-lift bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-dgi-50 flex items-center justify-center mb-4">
+                        <iconify-icon icon="mdi:account-group" class="text-dgi-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Cuántas personas visitan</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">Muestra la cantidad total de visitantes únicos y el número de páginas que vieron, en números grandes y claros.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="reveal stagger-2 card-lift bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center mb-4">
+                        <iconify-icon icon="mdi:clock-outline" class="text-accent-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">En qué horarios hay más tráfico</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">Un gráfico que muestra la actividad a lo largo del día. Así se sabe cuándo hay que tener más recursos disponibles.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="reveal stagger-3 card-lift bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+                        <iconify-icon icon="mdi:earth" class="text-blue-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">De qué país vienen</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">Identifica el origen geográfico de las visitas para saber si el tráfico es local o hay interés desde otras regiones.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="reveal stagger-4 card-lift bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-4">
+                        <iconify-icon icon="mdi:cellphone" class="text-green-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Qué dispositivos usan</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">Muestra la proporción de celulares vs. computadoras. Si el 60% entra desde el celular, hay que priorizar esa experiencia.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="reveal stagger-5 card-lift bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-4">
+                        <iconify-icon icon="mdi:fire" class="text-warm-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Qué páginas son las más visitadas</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">Un ranking de las secciones más populares del portal para entender qué servicios buscan más los ciudadanos.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="reveal stagger-6 card-lift bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                    <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center mb-4">
+                        <iconify-icon icon="mdi:alert-octagon" class="text-danger-500 text-2xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Actividades sospechosas</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">Destalla en rojo las visitas que no se comportan como un humano normal: posibles bots o atacantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 6: DETECCIÓN DE ANOMALÍAS -->
+    <!-- ============================================ -->
+    <section id="deteccion" class="py-24 md:py-32 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Visual explanation -->
+                <div class="reveal-left order-2 lg:order-1">
+                    <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                        <div class="text-[10px] font-bold tracking-[0.3em] uppercase text-gray-400 mb-6">Ejemplo visual</div>
+                        
+                        <!-- Scatter-like visualization -->
+                        <div class="relative bg-white rounded-xl p-6 border border-gray-100 mb-4" style="min-height: 280px;">
+                            <div class="absolute top-3 left-4 text-[9px] text-gray-300 font-mono">Páginas visitadas →</div>
+                            <div class="absolute top-4 left-0 bottom-0 flex flex-col justify-between items-start pl-3 text-[9px] text-gray-300 font-mono">
+                                <span>Alto</span>
+                                <span>Bajo</span>
+                            </div>
+                            
+                            <!-- Normal dots -->
+                            <div class="pt-8 pl-10 flex flex-wrap gap-2 justify-center items-end">
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 60px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 80px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 50px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 70px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 55px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 75px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 65px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 45px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 85px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 60px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 70px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 50px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 65px;"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-300 opacity-70" style="margin-bottom: 55px;"></div>
+                                
+                                <!-- Anomaly dot with pulse -->
+                                <div class="relative" style="margin-bottom: 5px;">
+                                    <div class="absolute inset-0 w-3 h-3 rounded-full bg-red-400 pulse-ring"></div>
+                                    <div class="w-3 h-3 rounded-full bg-red-500 relative z-10"></div>
+                                </div>
+                                <div class="relative" style="margin-bottom: 0px;">
+                                    <div class="absolute inset-0 w-3 h-3 rounded-full bg-red-400 pulse-ring" style="animation-delay: 0.5s;"></div>
+                                    <div class="w-3 h-3 rounded-full bg-red-500 relative z-10"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Legend -->
+                            <div class="flex items-center justify-center gap-6 mt-4 pt-4 border-t border-gray-100">
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-green-300"></div>
+                                    Visitas normales
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                    Comportamiento sospechoso
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+                            <div class="flex items-start gap-3">
+                                <iconify-icon icon="mdi:alert" class="text-danger-500 text-xl mt-0.5 flex-shrink-0"></iconify-icon>
+                                <div>
+                                    <div class="text-sm font-semibold text-red-800 mb-1">IP detectada como anómala</div>
+                                    <div class="text-xs text-red-600 font-light">Visitó 4.872 páginas en 12 minutos — un humano normal visita entre 5 y 30.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Text -->
+                <div class="order-1 lg:order-2">
+                    <div class="reveal">
+                        <span class="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-danger-500 bg-red-50 px-4 py-2 rounded-full mb-6">Detección inteligente</span>
+                    </div>
+                    <h2 class="reveal stagger-1 font-serif text-3xl md:text-4xl tracking-tight text-gray-900 mb-6 leading-tight">
+                        ¿Cómo sabe si algo es <span class="text-danger-500">sospechoso</span>?
+                    </h2>
+                    <div class="reveal stagger-2 accent-line h-0.5 bg-danger-500 rounded-full mb-8"></div>
+
+                    <div class="space-y-6">
+                        <div class="reveal stagger-2 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-dgi-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="text-dgi-600 text-sm font-bold">1</span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-900 mb-1">Aprende lo "normal"</h4>
+                                <p class="text-sm text-gray-500 font-light leading-relaxed">Primero estudia cómo se comportan la mayoría de los visitantes: cuántas páginas miran, en cuánto tiempo, desde dónde.</p>
+                            </div>
+                        </div>
+
+                        <div class="reveal stagger-3 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-dgi-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="text-dgi-600 text-sm font-bold">2</span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-900 mb-1">Compara cada visitante</h4>
+                                <p class="text-sm text-gray-500 font-light leading-relaxed">Luego evalúa cada visita contra ese patrón. Si alguien se desvía mucho del comportamiento normal, lo marca.</p>
+                            </div>
+                        </div>
+
+                        <div class="reveal stagger-4 flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-dgi-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span class="text-dgi-600 text-sm font-bold">3</span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-900 mb-1">Se puede ajustar la sensibilidad</h4>
+                                <p class="text-sm text-gray-500 font-light leading-relaxed">Un control deslizante permite ser más o menos estricto. No es una "caja negra": el operador tiene el control.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal stagger-5 mt-8 bg-gray-50 rounded-xl p-5 border border-gray-100">
+                        <p class="text-xs text-gray-400 italic leading-relaxed">
+                            <iconify-icon icon="mdi:lightbulb-outline" class="text-warm-400 mr-1"></iconify-icon>
+                            <strong class="text-gray-500">Analogía:</strong> Es como un detector de metales en un aeropuerto. No sabe quién es la persona, pero sabe que algo en su comportamiento no es habitual y merece revisión.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 7: BENEFICIOS -->
+    <!-- ============================================ -->
+    <section id="beneficios" class="py-24 md:py-32 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="reveal text-center mb-16">
+                <span class="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-success-500 bg-green-50 px-4 py-2 rounded-full mb-6 border border-green-100">Resultados concretos</span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-tight text-gray-900 mb-6">
+                    ¿Qué se logra con esto?
+                </h2>
+                <div class="accent-line h-0.5 bg-success-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Benefit 1 -->
+                <div class="reveal stagger-1 card-lift bg-white rounded-2xl p-8 border border-gray-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-bl-[80px] -mr-10 -mt-10"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+                                <iconify-icon icon="mdi:shield-lock" class="text-success-500 text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-success-500 bg-green-50 px-3 py-1 rounded-full">Seguridad</span>
+                        </div>
+                        <h3 class="text-xl font-serif text-gray-900 mb-3">Detectar amenazas antes de que causen daño</h3>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            Si un bot está intentando saturar el portal o probar contraseñas, el dashboard lo muestra de inmediato. Se puede actuar a tiempo en lugar de reaccionar cuando ya es tarde.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="reveal stagger-2 card-lift bg-white rounded-2xl p-8 border border-gray-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-[80px] -mr-10 -mt-10"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                                <iconify-icon icon="mdi:speedometer" class="text-blue-500 text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-500 bg-blue-50 px-3 py-1 rounded-full">Rendimiento</span>
+                        </div>
+                        <h3 class="text-xl font-serif text-gray-900 mb-3">Preparar los servidores para los picos</h3>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            Sabiendo a qué hora hay más visitas, se pueden asignar más recursos antes de que el sitio se ponga lento. Es como saber cuándo va a haber fila en el banco.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="reveal stagger-3 card-lift bg-white rounded-2xl p-8 border border-gray-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-bl-[80px] -mr-10 -mt-10"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                                <iconify-icon icon="mdi:account-heart" class="text-accent-500 text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-accent-500 bg-purple-50 px-3 py-1 rounded-full">Experiencia</span>
+                        </div>
+                        <h3 class="text-xl font-serif text-gray-900 mb-3">Mejorar lo que el ciudadano necesita</h3>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            Si la mayoría entra desde el celular y busca trámites específicos, se puede priorizar que esas páginas carguen rápido y se vean bien en pantallas chicas.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="reveal stagger-4 card-lift bg-white rounded-2xl p-8 border border-gray-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-bl-[80px] -mr-10 -mt-10"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
+                                <iconify-icon icon="mdi:chart-timeline-variant-shimmer" class="text-warm-500 text-xl"></iconify-icon>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-warm-500 bg-amber-50 px-3 py-1 rounded-full">Decisión</span>
+                        </div>
+                        <h3 class="text-xl font-serif text-gray-900 mb-3">Tomar decisiones con datos, no con suposiciones</h3>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            En lugar de preguntarse "¿será que nadie usa esa sección?", el dashboard responde con números claros. Cada inversión en tecnología se justifica con evidencia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extra feature: Reports -->
+            <div class="reveal mt-12 bg-gradient-to-r from-dgi-900 to-dgi-950 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-dgi-800 rounded-full -mr-32 -mt-32 opacity-50"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-accent-700 rounded-full -ml-24 -mb-24 opacity-20"></div>
+                <div class="relative grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-2">
+                        <div class="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-dgi-300 mb-4">
+                            <iconify-icon icon="mdi:star-four-points" class="text-sm"></iconify-icon>
+                            Función adicional
+                        </div>
+                        <h3 class="text-2xl font-serif mb-3">Genera reportes listos para compartir</h3>
+                        <p class="text-white/60 font-light text-sm leading-relaxed">
+                            Con un clic se pueden descargar los datos procesados en formato CSV o un reporte ejecutivo en texto plano. Ideal para presentarlo a superiores, auditorías o equipos de trabajo.
+                        </p>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 flex items-center gap-3">
+                            <iconify-icon icon="mdi:file-table" class="text-dgi-300 text-2xl"></iconify-icon>
+                            <div>
+                                <div class="text-xs font-semibold">Datos completos</div>
+                                <div class="text-[10px] text-white/40">CSV descargable</div>
+                            </div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 flex items-center gap-3">
+                            <iconify-icon icon="mdi:alert-decagram" class="text-danger-400 text-2xl"></iconify-icon>
+                            <div>
+                                <div class="text-xs font-semibold">IPs sospechosas</div>
+                                <div class="text-[10px] text-white/40">Lista filtrada</div>
+                            </div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 flex items-center gap-3">
+                            <iconify-icon icon="mdi:file-document-outline" class="text-warm-400 text-2xl"></iconify-icon>
+                            <div>
+                                <div class="text-xs font-semibold">Reporte ejecutivo</div>
+                                <div class="text-[10px] text-white/40">Resumen en texto</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 8: IMPORTANCIA -->
+    <!-- ============================================ -->
+    <section id="importancia" class="py-24 md:py-32 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="reveal text-center mb-16">
+                <span class="inline-block text-[10px] font-bold tracking-[0.3em] uppercase text-dgi-500 bg-dgi-100 px-4 py-2 rounded-full mb-6">Por qué importa</span>
+                <h2 class="font-serif text-3xl md:text-5xl tracking-tight text-gray-900 mb-6">
+                    No es un lujo, es una <span class="gradient-text">necesidad</span>
+                </h2>
+                <div class="accent-line h-0.5 bg-dgi-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Key stats / reasons -->
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <div class="reveal stagger-1">
+                    <div class="number-highlight rounded-2xl p-8 h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <iconify-icon icon="mdi:gavel" class="text-dgi-500 text-2xl"></iconify-icon>
+                            <h3 class="text-lg font-semibold text-gray-900">Obligación legal y institucional</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            El Estado tiene la responsabilidad de proteger la información de los ciudadanos y garantizar la disponibilidad de sus servicios digitales. No monitorear el tráfico es como dejar la puerta del edificio público abierta de noche.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="reveal stagger-2">
+                    <div class="number-highlight rounded-2xl p-8 h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <iconify-icon icon="mdi:trending-up" class="text-accent-500 text-2xl"></iconify-icon>
+                            <h3 class="text-lg font-semibold text-gray-900">Los ataques crecen cada año</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            Los sitios gubernamentales son blancos frecuentes de ataques automatizados. Sin una herramienta que los detecte, pueden pasar meses sin que nadie se entere de que el portal estuvo bajo ataque.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="reveal stagger-3">
+                    <div class="number-highlight rounded-2xl p-8 h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <iconify-icon icon="mdi:cash-multiple" class="text-success-500 text-2xl"></iconify-icon>
+                            <h3 class="text-lg font-semibold text-gray-900">Ahorro de recursos públicos</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            Cada minuto de caída del portal es dinero y tiempo perdido — tanto del Estado como de los ciudadanos. Prevenir es infinitamente más barato que reparar.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="reveal stagger-4">
+                    <div class="number-highlight rounded-2xl p-8 h-full">
+                        <div class="flex items-center gap-3 mb-4">
+                            <iconify-icon icon="mdi:account-check" class="text-warm-500 text-2xl"></iconify-icon>
+                            <h3 class="text-lg font-semibold text-gray-900">Confianza del ciudadano</h3>
+                        </div>
+                        <p class="text-sm text-gray-500 font-light leading-relaxed">
+                            Cuando un portal gubernamental funciona bien, es rápido y está seguro, la gente confía más en el Estado. La tecnología bien usada es un puente de confianza entre el gobierno y la gente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impact statement
+            <div class="reveal">
+                <div class="bg-gradient-to-r from-dgi-50 to-purple-50 rounded-2xl p-8 md:p-12 border border-dgi-100 text-center">
+                    <iconify-icon icon="mdi:format-quote-open" class="text-dgi-300 text-4xl mb-4"></iconify-icon>
+                    <p class="font-serif text-xl md:text-2xl text-gray-800 leading-relaxed max-w-3xl mx-auto mb-6">
+                        Un gobierno que no sabe quién entra a su portal web, es como un municipio que no sabe quién entra a sus oficinas. Esta herramienta cierra esa brecha de información, de forma simple y automática.
+                    </p>
+                    <div class="w-12 h-0.5 bg-dgi-300 mx-auto rounded-full"></div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- ============================================ -->
+    <!-- SLIDE 9: CIERRE -->
+    <!-- ============================================ -->
+    <section id="cerrar" class="relative py-24 md:py-32 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 hero-bg"></div>
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <div class="reveal">
+                <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md mb-8">
+                    <iconify-icon icon="mdi:check-decagram" class="text-green-400 text-lg"></iconify-icon>
+                    <span class="text-white/90 text-xs font-semibold tracking-widest uppercase">Resumen</span>
+                </div>
+            </div>
+
+            <h2 class="reveal stagger-1 font-serif text-3xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight mb-8">
+                Tecnología que sirve<br>a la gente
+            </h2>
+
+            <p class="reveal stagger-2 text-lg text-white/60 font-light max-w-2xl mx-auto leading-relaxed mb-12">
+                Este dashboard no es un proyecto técnico por el gusto de hacerlo. Es una herramienta concreta que protege, informa y mejora el portal del gobierno de Santiago del Estero para que los ciudadanos reciban un mejor servicio.
+            </p>
+
+            <!-- Key takeaways -->
+            <div class="reveal stagger-3 grid sm:grid-cols-3 gap-4 mb-16 max-w-3xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+                    <iconify-icon icon="mdi:eye" class="text-dgi-300 text-2xl mb-3"></iconify-icon>
+                    <div class="text-white text-sm font-medium">Visibilidad total</div>
+                    <div class="text-white/40 text-xs mt-1">del tráfico web</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+                    <iconify-icon icon="mdi:shield-check" class="text-green-400 text-2xl mb-3"></iconify-icon>
+                    <div class="text-white text-sm font-medium">Detección automática</div>
+                    <div class="text-white/40 text-xs mt-1">de amenazas</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+                    <iconify-icon icon="mdi:chart-box" class="text-warm-400 text-2xl mb-3"></iconify-icon>
+                    <div class="text-white text-sm font-medium">Decisiones con datos</div>
+                    <div class="text-white/40 text-xs mt-1">no con suposiciones</div>
+                </div>
+            </div>
+
+            <!-- DGIPSE Credit -->
+            <div class="reveal stagger-4">
+                <div class="inline-flex flex-col items-center gap-4">
+                    <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+                        <iconify-icon icon="mdi:monitor-dashboard" class="text-white text-3xl"></iconify-icon>
+                    </div>
+                    <div>
+                        <div class="text-white font-semibold text-lg">DGIPSE</div>
+                        <div class="text-white/40 text-xs tracking-wider">Dirección General de Informática y Procesamiento</div>
+                        <div class="text-white/40 text-xs tracking-wider">Santiago del Estero</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================ -->
+    <script>
+        // ========================
+        // Scroll reveal observer
+        // ========================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .accent-line, .mock-bar, .progress-fill').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ========================
+        // Mock bars height
+        // ========================
+        const barObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const height = entry.target.dataset.height;
+                    entry.target.style.height = height;
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.mock-bar').forEach(el => barObserver.observe(el));
+
+        // ========================
+        // Counter animation
+        // ========================
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    if (el.dataset.counted) return;
+                    el.dataset.counted = 'true';
+                    
+                    const duration = 2000;
+                    const start = performance.now();
+                    
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 4);
+                        const current = Math.floor(eased * target);
+                        el.textContent = current.toLocaleString('es-AR');
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(update);
+                        } else {
+                            el.textContent = target.toLocaleString('es-AR');
+                        }
+                    }
+                    requestAnimationFrame(update);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+        // ========================
+        // Nav dots active state
+        // ========================
+        const sections = ['hero', 'problema', 'que-es', 'como-funciona', 'pantallas', 'deteccion', 'beneficios', 'importancia', 'cerrar'];
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    const index = sections.indexOf(id);
+                    navDots.forEach((dot, i) => {
+                        dot.classList.toggle('active-dot', i === index);
+                    });
+                }
+            });
+        }, { threshold: 0.35 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sectionObserver.observe(el);
+        });
+
+        // ========================
+        // Scroll to section
+        // ========================
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ========================
+        // Hero particles
+        // ========================
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 6 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.bottom = '-20px';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ========================
+        // Progress bar widths (if any)
+        // ========================
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.dataset.width;
+                    if (width) entry.target.style.width = width;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.progress-fill').forEach(el => progressObserver.observe(el));
+    </script>
+</body>
+</html>
